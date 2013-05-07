@@ -1,0 +1,22 @@
+entero(a):=27
+IF(1, EQUAL(a, 1))
+
+ENDIF(1)
+
+
+Sea N el número compuesto a factorizar
+Sea Ps la lista de números primos actualmente obtenida
+
+Si N = 1, entonces el número no es factorizable (es 1).
+Si no es 1:
+
+i = 2
+mientras i < (N+1) y N no sea 1
+     si i es primo, y N es divisible por i
+        agregamos i a Ps
+        Hacemos N = N/i
+     sino
+        incrementamos i
+     fin-si
+fin-mientras
+devolvemos P
