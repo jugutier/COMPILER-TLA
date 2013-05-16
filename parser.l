@@ -31,7 +31,7 @@ ENDMAIN             {printf("Token: ENDMAIN\n");}
 {VARIABLES}         {printf("Token: VARIABLES = %s\n", yytext);}
 {SYMBOL_ACCEPTED}   {printf("Token: SYMBOL\n");}
 {PARENTESIS}        {printf("Token: PARENTESIS\n");}
-{SYMBOLS_NOT_ACCEPTED}           {printf("SYMBOL ERROR_FATAL\n");}
+.           {printf("SYMBOL ERROR_FATAL\n");}
 
 %%
 
