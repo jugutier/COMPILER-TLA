@@ -1,0 +1,28 @@
+INTEGER(mi_integer):=5;
+CHARACTER(mi_character):='a';
+BOOLEAN(mi_boolean):=TRUE;
+BOOLEAN(mi_boolean2):=FALSE;
+CONSTANT(mi_constant):=4;
+FUNCTION(mi_function)
+ENDFUNCTION(mi_function)
+LESS_THAN({mi_integer}, 6);
+GREATER_THAN({mi_integer}, 6);
+EQUALS({mi_integer}, 6);
+NOT_EQUALS({mi_integer}, 6);
+IF(LESS_THAN({mi_integer}, 6))
+ENDIF
+WHILE(GREATER_THAN({mi_integer}, 6))
+ENDWHILE
+ADD({mi_integer}, 5);
+LESS({mi_integer}, 6);
+DIVIDE(10, 2);
+MULTIPLY(2, 6);
+<mi_integer>:=ADD(mi_integer2, 5);
+<mi_integer>:=LESS(mi_integer2, mi_integer1);
+<mi_integer>:=DIVIDE(10, mi_integer6);
+<mi_integer>:=MULTIPLY(2, 6);
+<mi_boolean>:=LESS_TAN(3, 5);
+<mi_boolean>:=GREATER_THAN(4, 5);
+<mi_boolean>:=EQUALS(4, 4);
+<mi_boolean>:=NOT_EQUALS(5, 5);
+
