@@ -1,22 +1,27 @@
-INTEGER     "INTEGER"\([_a-zA-Z][_a-zA-Z0-9]*\):=[0-9]+
-CHARACTER   "CHARACTER"\([_a-zA-Z][_a-zA-Z0-9]*\):=\'[a-zA-Z]\'
-BOOLEAN     "BOOLEAN"\([_a-zA-Z][_a-zA-Z0-9]*\):=("TRUE"|"FALSE")
-CONSTANT    "CONSTANT"\([_a-zA-Z][_a-zA-Z0-9]*\):=[0-9]+
-FUNCTION    "FUNCTION"\([_a-zA-Z][_a-zA-Z0-9]*\)
-ENDFUNCTION "ENDFUNCTION"\([_a-zA-Z][_a-zA-Z0-9]*\)
-LESS_THAN "LESS_THAN"\((\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9]),(\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9])\)
-GREATER_THAN "GREATER_THAN"\((\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9]),(\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9])\)
-EQUALS "EQUALS"\((\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9]),(\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9])\)
-NOT_EQUALS "NOT_EQUALS"\((\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9]),(\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9])\)
-IF "IF"\(({LESS_THAN}|{GREATER_THAN}|{EQUALS}|{NOT_EQUALS})\)
+VAR_NAME	[_a-zA-Z][_a-zA-Z0-9]*
+DIGIT		[0-9]
+VAR_RIGHT_VALUE		\{{VAR_NAME}\}
+VAR_LEFT_VALUE		<{VAR_NAME}>
+INTEGER     "INTEGER"\({VAR_NAME}\):={DIGIT}+
+CHARACTER   "CHARACTER"\({VAR_NAME}\):=\'[a-zA-Z]\'
+BOOLEAN_TYPE	"TRUE"|"FALSE"
+BOOLEAN     "BOOLEAN"\({VAR_NAME}\):=({BOOLEAN_TYPE})
+CONSTANT    "CONSTANT"\({VAR_NAME}\):={DIGIT}+
+FUNCTION    "FUNCTION"\({VAR_NAME}\)
+ENDFUNCTION "ENDFUNCTION"\({VAR_NAME}\)
+LESS_THAN "LESS_THAN"\(({VAR_RIGHT_VALUE}|{DIGIT}),({VAR_RIGHT_VALUE}|{DIGIT})\)
+GREATER_THAN "GREATER_THAN"\(({VAR_RIGHT_VALUE}|{DIGIT}),({VAR_RIGHT_VALUE}|{DIGIT})\)
+EQUALS "EQUALS"\(({VAR_RIGHT_VALUE}|{DIGIT}),({VAR_RIGHT_VALUE}|{DIGIT})\)
+NOT_EQUALS "NOT_EQUALS"\(({VAR_RIGHT_VALUE}|{DIGIT}),({VAR_RIGHT_VALUE}|{DIGIT})\)
+IF "IF"\(({LESS_THAN}|{GREATER_THAN}|{EQUALS}|{NOT_EQUALS}|{VAR_RIGHT_VALUE}|{BOOLEAN_TYPE})\)
 ENDIF "ENDIF"
-WHILE "WHILE"\(({LESS_THAN}|{GREATER_THAN}|{EQUALS}|{NOT_EQUALS})\)
+WHILE "WHILE"\(({LESS_THAN}|{GREATER_THAN}|{EQUALS}|{NOT_EQUALS}|{VAR_RIGHT_VALUE}|{BOOLEAN_TYPE})\)
 ENDWHILE "ENDWHILE"	
-ADD "ADD"\((\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9]),(\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9])\)
-LESS "LESS"\((\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9]),(\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9])\)
-DIVIDE "DIVIDE"\((\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9]),(\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9])\)
-MULTIPLY "MULTIPLY"\((\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9]),(\{[_a-zA-Z][_a-zA-Z0-9]*\}|[0-9])\)
-VAR_LEFT_VALUE	<[_a-zA-Z][_a-zA-Z0-9]*>:=({LESS}|{ADD}|{MULTIPLY}|{DIVIDE}|{LESS_THAN}|{GREATER_THAN}|{EQUALS}|{NOT_EQUALS})
+ADD "ADD"\(({VAR_RIGHT_VALUE}|{DIGIT}),({VAR_RIGHT_VALUE}|{DIGIT})\)
+LESS "LESS"\(({VAR_RIGHT_VALUE}|{DIGIT}),({VAR_RIGHT_VALUE}|{DIGIT})\)
+DIVIDE "DIVIDE"\(({VAR_RIGHT_VALUE}|{DIGIT}),({VAR_RIGHT_VALUE}|{DIGIT})\)
+MULTIPLY "MULTIPLY"\(({VAR_RIGHT_VALUE}|{DIGIT}),({VAR_RIGHT_VALUE}|{DIGIT})\)
+VAR_DEFINITION	{VAR_LEFT_VALUE}:=({LESS}|{ADD}|{MULTIPLY}|{DIVIDE}|{LESS_THAN}|{GREATER_THAN}|{EQUALS}|{NOT_EQUALS})
 %%
 
 {INTEGER}";"       		printf("Token INTEGER: %s\n", yytext);
@@ -25,7 +30,7 @@ VAR_LEFT_VALUE	<[_a-zA-Z][_a-zA-Z0-9]*>:=({LESS}|{ADD}|{MULTIPLY}|{DIVIDE}|{LESS
 {CONSTANT}";"      		printf("Token CONSTANT: %s\n", yytext);
 {FUNCTION}      		printf("Token FUNCTION: %s\n", yytext);
 {ENDFUNCTION}   		printf("Token ENDFUNCTION: %s\n", yytext);
-{VAR_LEFT_VALUE}";"     printf("Token VAR_LEFT_VALUE: %s\n", yytext);
+{VAR_DEFINITION}";"     printf("Token VAR_DEFINITION: %s\n", yytext);
 {LESS_THAN}";"     		printf("Token LESS_THAN: %s\n", yytext);
 {GREATER_THAN}";"   	printf("Token GREATER_THAN: %s\n", yytext);
 {EQUALS}";"     		printf("Token EQUALS: %s\n", yytext);
