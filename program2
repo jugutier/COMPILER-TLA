@@ -56,11 +56,3 @@ MULTIPLY({mi_integer},6);
 <mi_boolean>:=GREATER_THAN(6,6);
 <mi_boolean>:=EQUALS(6,6);
 <mi_boolean>:=NOT_EQUALS(6,6);
-
-asdfasd
-fa
-sdf
-asdf
-asd
-f
-
