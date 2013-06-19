@@ -1,7 +1,7 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-extern int number;
+int n;
 
 void yyerror (const char *str) {
     printf ("ERROR: %s, %d\n", str, number);
@@ -14,7 +14,15 @@ void yyerror (const char *str) {
 
 %%
 
-program: 	DIGIT	{printf("PASO \n");};
+program: 	IF(condition) source ENDIF		{
+												if($1) {
+													$2		
+												}
+											};
+
+
+
+
 
 
 %%
