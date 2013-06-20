@@ -1,0 +1,4 @@
+flex extra.l
+yacc -d extra.y
+gcc -o Extra y.tab.c -ll -ly
+./Extra primos.c

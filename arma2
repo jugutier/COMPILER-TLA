@@ -1,0 +1,3 @@
+flex test.l && yacc -d compiler.y && gcc -o Compiler lex.yy.c y.tab.c -lfl
+
+./Compiler < test.txt

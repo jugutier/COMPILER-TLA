@@ -1,28 +1,22 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-int n;
-
-void yyerror (const char *str) {
-    printf ("ERROR: %s, %d\n", str, number);
-}
-
 %}
 
-%token DIGIT
-%start program
+%token INTEGER
+%token VAR_NAME
+%token VALUE
+%token ASSIGNATION
+%token PARENTESIS_OPEN
+%token PARENTESIS_CLOSE
+%start prime
 
 %%
 
-program: 	IF(condition) source ENDIF		{
-												if($1) {
-													$2		
-												}
-											};
-
-
-
-
+prime:	INTEGER PARENTESIS_OPEN VAR_NAME 
+		PARENTESIS_CLOSE ASSIGNATION VALUE {
+									printf("%s", $1);
+									}; 	
 
 
 %%
