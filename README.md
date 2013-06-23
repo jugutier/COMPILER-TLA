@@ -18,12 +18,11 @@ Para compilar usar el comando "make" parado en el directorio raiz
 
 ####Por donde seguir?
 Necesitamos agregar la parte semantica, podemos:
-* crear desde cero en compiler.y 
-* añadir el codigo c en extra.y
-#### Un programa con la sintaxis que admitimos?
+* Crearla desde cero en compiler.y (que usa program2 como entrada)
+* Añadir el codigo c en extra.y (que usa primos.c como entrada)
+#### Un programa con la sintaxis que admite nuestro lenguaje?
  Program.txt, en pseudo-codigo
  program2 implementacion
- Si usas extra.y la entrada seria el programa en primos.c
 
 #### Que deberia pasar?
 * Ejecuto >./arma2 se crea nuestro compilador con la parte sintactica y semantica. 
