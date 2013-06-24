@@ -24,6 +24,12 @@ Necesitamos agregar la parte semantica, podemos:
  Program.txt, en pseudo-codigo
  program2 implementacion
 
-#### Que deberia pasar?
+####Que deberia pasar?
 * Ejecuto >./arma2 se crea nuestro compilador con la parte sintactica y semantica. 
 * Se ejecuta en el compilador nuestro program2 y devuelva la salida del programa, por ejemplo si lo ejecute con 3 me devuelve 3 la descomposicion en primos
+
+####Entendamos el proceso de generacion del compilador
+gcc -o Extra y.tab.c -ll -ly
+* -o archivo redirecciona el out a archivo
+* y.tab.c se genera en base a la sintaxys/semantica descrita, es un programa de c eso lo ejecutamos con gcc y ponemos el output en un archivo que va a ser nuestro compilador
+* luego ejecutamos nuestro compilador con el archivo de nuestra sintaxis
