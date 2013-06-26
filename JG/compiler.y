@@ -54,7 +54,6 @@ pint next_prime(pint);
 int is_prime(xint);
 void sieve(pint);
 char * decomposer (xint number, char** aux); 
-xint atollu(char * string);
 
 uint8_t bit_pos[30] = {
 	0, 1<<0, 0, 0, 0,    0,
@@ -84,7 +83,12 @@ MAIN:	 TYPE ID LEFT_PARENTHESIS  RIGHT_PARENTHESIS LEFT_BRACE D RIGHT_BRACE {
 D:	D DECOMPOSE LEFT_PARENTHESIS CONST RIGHT_PARENTHESIS SEMI_COLON	{if (rta == NULL) {
 																		rta = calloc(sizeof(char), 10000);
 																	}
-																	$$ = decomposer((xint)atollu($4), &rta);}
+																	if (strlen($4) > strlen("9223372036854775807")) {
+																		sprintf(rta, "%s\n\tprintf(\"El numero %s supera el valor maximo 9223372036854775807\");", rta, $4);
+																		$$ = rta;
+																	} else {
+																		$$ = decomposer((xint)atol($4), &rta);
+																		}};
 	| { $$ = ""; }
 	;
 %%
@@ -291,25 +295,4 @@ int main(int argc, char * argv[]) {
 	yyparse();
 	fclose(inputFile);
 	fclose(outputFile);
-}
-
-xint
-atollu(char * string) {
-	xint number = 0;
-	long digit;
-	int i;
-	printf("Entra %s\n", string);
-	for( i = 0; i < strlen(string); i++) {
-		if (isdigit(string[i])) {
-			char aux[2];
-			aux[0] = string[i];
-			aux[1] = '\0';
-			digit = atol(aux);
-			number *= 10;
-			number += digit;
-			printf("Number %"PRIuXINT"\n", number);
-		}
-	}
-	//printf("%"PRIuXINT"\n", number);
-	return number;
 }
