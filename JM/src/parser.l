@@ -30,7 +30,6 @@
 "*"	return(TIMES);
 "/"	return(DIVIDE);
 "return"	return(RETURN);
-"decompose"	return(DECOMPOSE);
 printf(.*)	{ return ioFunction(); }
 scanf(.*)	{ return ioFunction(); }
 int {yylval.strval=strdup(yytext); return(TYPE);}
