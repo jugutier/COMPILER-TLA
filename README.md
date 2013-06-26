@@ -33,3 +33,15 @@ gcc -o Extra y.tab.c -ll -ly
 * -o archivo redirecciona el out a archivo
 * y.tab.c se genera en base a la sintaxys/semantica descrita, es un programa de c eso lo ejecutamos con gcc y ponemos el output en un archivo que va a ser nuestro compilador
 * luego ejecutamos nuestro compilador con el archivo de nuestra sintaxis
+
+####Ultimas novedades
+En la carpeta JG encontraran lo ulimo hasta ahora
+Uso:
+*./compile (se genera compiler y a.out)
+*./compiler testjg.c (compila el programa en nuestra sintaxis)
+Falta:
+* corregir el casteo del atoi que puede dar overflow
+* hacer el informe
+* meti los printfs en el medio, al ejecutar ./compiler deberia generarse el codigo c equivalente a nuestra sintaxis, que luego deberia ser compilado por gcc, ver ejemplo de JM
+* BONUS ver de implementar big integer (hay que buscar en internet, y adaptar el codigo existente)
+
