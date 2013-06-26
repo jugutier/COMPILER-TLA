@@ -20,6 +20,7 @@
 #include <stdbool.h>
 #include <inttypes.h>
 #include <assert.h>
+#include <ctype.h>
 
 extern FILE * yyin;
 extern FILE * yyout;
@@ -53,6 +54,7 @@ pint next_prime(pint);
 int is_prime(xint);
 void sieve(pint);
 char * decomposer (xint number, char** aux); 
+xint atollu(char * string);
 
 uint8_t bit_pos[30] = {
 	0, 1<<0, 0, 0, 0,    0,
@@ -73,7 +75,7 @@ uint8_t rem_num[] = { 1, 7, 11, 13, 17, 19, 23, 29 };
 
 %%
 
-PROGRAM:	 MAIN {fprintf(outputFile, "int\nmain(void) {\n%s\n}", $1); };
+PROGRAM:	 MAIN {fprintf(outputFile, "#include <string.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <stdbool.h>\n#include <inttypes.h>\n#include <assert.h>\n#include <ctype.h>\n\n#define PRIuPINT PRIu32\n#define PRIuXINT PRIu64\n\nint\nmain(void) {\n%s\n\treturn 0;\n}\n", $1); };
 MAIN:	 TYPE ID LEFT_PARENTHESIS  RIGHT_PARENTHESIS LEFT_BRACE D RIGHT_BRACE {
 			$$ = $6;
 		}
@@ -82,7 +84,7 @@ MAIN:	 TYPE ID LEFT_PARENTHESIS  RIGHT_PARENTHESIS LEFT_BRACE D RIGHT_BRACE {
 D:	D DECOMPOSE LEFT_PARENTHESIS CONST RIGHT_PARENTHESIS SEMI_COLON	{if (rta == NULL) {
 																		rta = calloc(sizeof(char), 10000);
 																	}
-																	$$ = decomposer((xint)atoi($4), &rta);}
+																	$$ = decomposer((xint)atollu($4), &rta);}
 	| { $$ = ""; }
 	;
 %%
@@ -119,7 +121,7 @@ void init_primes()
 	for (s = 7; s <= MAX_PRIME_SQ; s = next_prime(s)) {
 		if (s > tgt) {
 			tgt *= 2;
-			fprintf(stderr, "sieve (SPANISH colando)%"PRIuPINT"\n", s);
+			//fprintf(stderr, "sieve (SPANISH colando)%"PRIuPINT"\n", s);
 		}
 		sieve(s);
 	}
@@ -225,15 +227,14 @@ char * decomposer (xint number, char ** aux){
 	xint f[MAX_FACTORS], po;
 
 	init_primes();
-	sprintf(*aux, "%s\tprintf(\"Descomposicion de %%\"PRIuXINT\" =\", %"PRIuXINT");\n", *aux, number);
+	sprintf(*aux, "%s\tprintf(\"Descomposicion de %"PRIuXINT" =\");\n", *aux, number);
 
 	fflush(stdout);
 		if ((len = decompose(number, f)) > 1){
 			for (i = 0; i < len; i++){
-				printf(" %c %"PRIuXINT, i?'x':' ', f[i]);
-				sprintf(*aux, "%s\tprintf(\" %%c %%\"PRIuXINT, %c, %"PRIuXINT");\n", *aux, i?'x':' ', f[i]);
+				sprintf(*aux, "%s\tprintf(\" %%c %"PRIuXINT"\", \'%c\');\n", *aux, f[i], i?'x':' ');
 			}
-			sprintf(*aux, "%s\tputchar(\'\\n\');", *aux);
+			sprintf(*aux, "%s\tputchar(\'\\n\');\n", *aux);
 		}
 		else
 		{
@@ -290,4 +291,25 @@ int main(int argc, char * argv[]) {
 	yyparse();
 	fclose(inputFile);
 	fclose(outputFile);
+}
+
+xint
+atollu(char * string) {
+	xint number = 0;
+	long digit;
+	int i;
+	printf("Entra %s\n", string);
+	for( i = 0; i < strlen(string); i++) {
+		if (isdigit(string[i])) {
+			char aux[2];
+			aux[0] = string[i];
+			aux[1] = '\0';
+			digit = atol(aux);
+			number *= 10;
+			number += digit;
+			printf("Number %"PRIuXINT"\n", number);
+		}
+	}
+	//printf("%"PRIuXINT"\n", number);
+	return number;
 }
