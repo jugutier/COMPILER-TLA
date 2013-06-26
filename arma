@@ -1,2 +1,0 @@
-flex compiler.l && gcc -o Compiler lex.yy.c -lfl
-./Compiler < program
