@@ -1,5 +1,5 @@
 #!/bin/bash
 bison -yd ./compiler.y -v
 flex ./parser.l
-gcc -o compiler lex.yy.c y.tab.c -ly -ll -g
+gcc -o compiler lex.yy.c y.tab.c -ly -ll
 rm y.tab.* lex.yy.c y.output

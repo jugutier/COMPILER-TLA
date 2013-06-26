@@ -26,6 +26,7 @@ extern FILE * yyout;
 extern int yylineno;
 
 FILE * outputFile = NULL;
+char * rta = NULL;
 
 
 
@@ -51,7 +52,7 @@ uint8_t *pbits;
 pint next_prime(pint);
 int is_prime(xint);
 void sieve(pint);
-void decomposer (xint number); 
+char * decomposer (xint number, char** aux); 
 
 uint8_t bit_pos[30] = {
 	0, 1<<0, 0, 0, 0,    0,
@@ -72,13 +73,16 @@ uint8_t rem_num[] = { 1, 7, 11, 13, 17, 19, 23, 29 };
 
 %%
 
-PROGRAM:	 MAIN { fprintf(outputFile, "%s", $1); };
+PROGRAM:	 MAIN {fprintf(outputFile, "int\nmain(void) {\n%s\n}", $1); };
 MAIN:	 TYPE ID LEFT_PARENTHESIS  RIGHT_PARENTHESIS LEFT_BRACE D RIGHT_BRACE {
 			$$ = $6;
 		}
 		| { $$ = ""; }
 		;
-D:	D DECOMPOSE LEFT_PARENTHESIS CONST RIGHT_PARENTHESIS SEMI_COLON{	 decomposer((xint)atoi($4));}
+D:	D DECOMPOSE LEFT_PARENTHESIS CONST RIGHT_PARENTHESIS SEMI_COLON	{if (rta == NULL) {
+																		rta = calloc(sizeof(char), 10000);
+																	}
+																	$$ = decomposer((xint)atoi($4), &rta);}
 	| { $$ = ""; }
 	;
 %%
@@ -216,24 +220,27 @@ int decompose(xint n, xint *f)
 * end Implementation for decomposer function
 */
 //created by jg
- void decomposer (xint number){
+char * decomposer (xint number, char ** aux){
  	int i, len;
 	xint f[MAX_FACTORS], po;
- 
+
 	init_primes();
-	printf("Descomposicion de %"PRIuXINT" =", number);
+	sprintf(*aux, "%s\tprintf(\"Descomposicion de %%\"PRIuXINT\" =\", %"PRIuXINT");\n", *aux, number);
 
 	fflush(stdout);
 		if ((len = decompose(number, f)) > 1){
 			for (i = 0; i < len; i++){
 				printf(" %c %"PRIuXINT, i?'x':' ', f[i]);
+				sprintf(*aux, "%s\tprintf(\" %%c %%\"PRIuXINT, %c, %"PRIuXINT");\n", *aux, i?'x':' ', f[i]);
 			}
-			putchar('\n');
+			sprintf(*aux, "%s\tputchar(\'\\n\');", *aux);
 		}
 		else
 		{
-			printf(" Es primo\n");
+			sprintf(*aux, "%s\tprintf(\" Es primo\\n\");", *aux);
 		}		
+
+	return *aux;
  }
 
 
