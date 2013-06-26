@@ -1,47 +1,42 @@
 TLA
 ===
 
-Primer TP
+##Primer TP
 
 ####Instrucciones
+Ubicarse en el directorio Parte 1/src
 Ver compiler.l para ver la sintaxis implementada en lex
-Para compilar usar el comando "make" parado en el directorio raiz
+Para compilar usar el comando >make [parametro] donde parametro es alguna de las siguientes:
+1. compile --- Only compile with lex
+2. compile_run_success --- Compile and execute valid program
+3. compile_run_failure --- Compile and execute invalid program
 
-1. El archivo "arma" es del primer tp
-2. El archivo "arma2" es lo que intento hacer puri para la parte 2
-3. El archivo "arma3" es uno descargado de internet  que parsea un "codigo en c" habria que probarlo con funciones
+##Segundo TP
+####Instrucciones
+Ubicarse en el directorio Parte 2/src
+*./compile
+*Inmediatamente emergera un menu con el siguiente texto:
+Se genero el compiler, desea compilar algo? 0(NO) 1(SI)
+* Ingrese 1 y presione enter
+*Inmediatamente emergera un menu con el siguiente texto:
+Nombre del programa?
+*Ingrese testjg.c   y presione enter
+*Aguarde a la generacion del cache de numeros primos (1 min)
+*Recibira el mensaje: "Se compilo en nuestra sintaxis: testjg.c"
+*Inmediatamente emergera un menu con el siguiente texto:
+*Ejecutar? 0(NO) 1(SI)
+*Ingrese 1 y presione enter
+*Vera por pantalla la correspondiente descomposicion en primos
 
-####Ejemplo de invocacion 
->sh arma 
-
->./arma
-
-####Por donde seguir?
-Necesitamos agregar la parte semantica, podemos:
-* Crearla desde cero en compiler.y (que usa program2 como entrada)
-* Añadir el codigo c en extra.y (que usa primos.c como entrada)
 #### Un programa con la sintaxis que admite nuestro lenguaje?
- Program.txt, en pseudo-codigo
- program2 implementacion
-
-####Que deberia pasar?
-* Ejecuto >./arma2 se crea nuestro compilador con la parte sintactica y semantica. 
-* Se ejecuta en el compilador nuestro program2 y devuelva la salida del programa, por ejemplo si lo ejecute con 3 me devuelve 3 la descomposicion en primos
-
-####Entendamos el proceso de generacion del compilador
-gcc -o Extra y.tab.c -ll -ly
-* -o archivo redirecciona el out a archivo
-* y.tab.c se genera en base a la sintaxys/semantica descrita, es un programa de c eso lo ejecutamos con gcc y ponemos el output en un archivo que va a ser nuestro compilador
-* luego ejecutamos nuestro compilador con el archivo de nuestra sintaxis
-
-####Ultimas novedades
-En la carpeta JG encontraran lo ulimo hasta ahora
-Uso:
-*./compile (se genera compiler y a.out)
-*./compiler testjg.c (compila el programa en nuestra sintaxis)
-Falta:
-* corregir el casteo del atoi que puede dar overflow
-* hacer el informe
-* meti los printfs en el medio, al ejecutar ./compiler deberia generarse el codigo c equivalente a nuestra sintaxis, que luego deberia ser compilado por gcc, ver ejemplo de JM
+ testjg.c
+ 
+ #### Que son estos archivos que me quedaron?
+ *primebits cache de primos 167mb
+ *out.c la salida del programa compilado en nuestra gramatica representado en c
+ *a.out el binario compilado en c de out.c (el programa en nuestra sintaxis ya compilado)
+ 
+####Por donde seguir?
 * BONUS ver de implementar big integer (hay que buscar en internet, y adaptar el codigo existente)
+
 
