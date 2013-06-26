@@ -3,3 +3,25 @@ bison -yd ./compiler.y -v
 flex ./parser.l
 gcc -o compiler lex.yy.c y.tab.c -ly -ll
 rm y.tab.* lex.yy.c y.output
+
+echo "Se genero el compiler, desea compilar algo? 0(NO) 1(SI)"
+read var_compilar
+if [ $var_compilar -eq 1 ]
+then
+	echo "Nombre del programa?"
+	read var_programa
+	./compiler $var_programa
+	echo "$?"
+	echo "Se compilo en nuestra sintaxis: $var_programa"
+	echo "Ejecutar? 0(NO) 1(SI)"
+	read var_ejecutar
+	if [ $var_ejecutar -eq 1 ]
+	then
+		gcc out.c
+		./a.out
+	else
+		echo "Fin"
+	fi
+else
+	echo "Fin"
+fi
