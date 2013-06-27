@@ -119,6 +119,8 @@ void init_primes()
 		fread(pbits, 1, PBITS, fp);
 		fclose(fp);
 		return;
+	}else{
+		printf("Generando cache de primos\n");
 	}
  
 	memset(pbits, 255, PBITS);

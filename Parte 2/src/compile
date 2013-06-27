@@ -11,7 +11,6 @@ then
 	echo "Nombre del programa?"
 	read var_programa
 	./compiler $var_programa
-	echo "$?"
 	echo "Se compilo en nuestra sintaxis: $var_programa"
 	echo "Ejecutar? 0(NO) 1(SI)"
 	read var_ejecutar
