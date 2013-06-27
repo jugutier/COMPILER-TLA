@@ -5,4 +5,5 @@ int main ( ) {
 	decompose(654984135);
 	decompose(343524549651059);
 	decompose(98765456498765372);
+	decompose(987654564987653721234);
 }
